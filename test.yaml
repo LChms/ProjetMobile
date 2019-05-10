@@ -1,0 +1,161 @@
+name: Social Messages
+group_id: null
+unique_id: social_messages
+priority:
+  group: normal
+  rank: 4
+color: "#00aced"
+icon: group
+video: ''
+description: In this topic, you will find messages from your social media
+job:
+  pmpo:
+    default_value_availability: false
+  dev:
+    default_value_availability: false
+  other:
+    default_value_availability: false
+  designer:
+    default_value_availability: false
+    
+    //twitter
+    
+rules:
+  - channel_source: gmail
+    event: incoming_message
+    filters:
+      -
+        field: subject-contains
+        source: "parsed_raw.search_content"
+        operator: regexp
+        value:
+          logickey: OR
+          source: "tagged\\syou\\son\\sFacebook|Direct\\sMessage\\son\\sTwitter|Message\\sPrivé\\ssur\\sTwitter|replied\\sto\\syour\\sTweet|mentioned\\syou\\sin\\sconversation\\son\\sTwitter|vous\\sa\\smentionné\\ssur\\sTwitter"
+          
+                    
+  - channel_source: outlook
+    event: incoming_message
+    filters:
+      -
+        field: subject-contains
+        source: Subject
+        operator: regexp
+        value:
+          logickey: OR
+          source: "Direct\\sMessage\\son\\sTwitter|Message\\sPrivé\\ssur\\sTwitter|replied\\sto\\syour\\sTweet|mentioned\\syou\\sin\\sconversation\\son\\sTwitter|vous\\sa\\smentionné\\ssur\\sTwitter"
+          
+          
+          
+          
+          
+          
+   
+   //link et pinterest
+   
+- channel_source: outlook
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: from_list
+        operator: regexp
+        value:
+          logickey: OR
+          source: "messaging-digest-noreply@linkedin.com|activity@notifications.pinterest.com"
+          
+- channel_source: gmail
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: parsed_raw.headers.parsed_from
+        operator: regexp
+        value:
+          logickey: OR
+          source: "messaging-digest-noreply@linkedin.com|activity@notifications.pinterest.com"
+          
+          
+          
+          
+          //fb 
+          
+  - channel_source: outlook
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: from_list
+        operator: regexp
+        value:
+          logickey: OR
+          source: "notification@facebookmail.com"
+      - 
+        field: subject-contains
+        source: Subject
+        operator: regexp
+        value:
+          logickey: OR
+          source: "message|a\\smentionné|mentioned\\syou|tagged\\syou|vous\\sa\\stagué"
+          
+  - channel_source: gmail
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: parsed_raw.headers.parsed_from
+        operator: regexp
+        value:
+          logickey: OR
+          source: "notification@facebookmail.com"
+      - 
+        field: subject-contains
+        source: "parsed_raw.search_content"
+        operator: regexp
+        value:
+          logickey: OR
+          source: "message|a\\smentionné|mentioned\\syou|tagged\\syou|vous\\sa\\stagué"
+          
+          
+          
+    //workplace
+          
+- channel_source: outlook
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: from_list
+        operator: regexp
+        value:
+          logickey: OR
+          source: "notification@fbworkmail.com"
+      - 
+        field: subject-contains
+        source: Subject
+        operator: regexp
+        value:
+          logickey: OR
+          source: "[Général]|a\\spublié|mentioned\\syou|tagged\\syou|vous\\sa\\stagué"
+          
+  - channel_source: gmail
+    event: incoming_message
+    filters:
+      -
+        field: from
+        source: parsed_raw.headers.parsed_from
+        operator: regexp
+        value:
+          logickey: OR
+          source: "notification@fbworkmail.com"
+      - 
+        field: subject-contains
+        source: "parsed_raw.search_content"
+        operator: regexp
+        value:
+          logickey: OR
+          source: "message|a\\smentionné|mentioned\\syou|tagged\\syou|vous\\sa\\stagué"
+          
+          
+          
+          
+          
